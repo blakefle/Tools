@@ -1,0 +1,3 @@
+#!/bin/bash
+
+cat $1 | egrep '[0-9]+/open' -o | sed 's/\/open//g' | sort -uh | sed 's/$/,/g' | tr -d '\n' | sed 's/,$//'

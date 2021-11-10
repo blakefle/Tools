@@ -1,0 +1,16 @@
+#!/usr/bin/python3
+import requests, sys, re
+
+domain = sys.argv[1]
+url = f'https://crt.sh/?q={domain}'
+user_agent = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36'}
+
+r = requests.get(url, headers=user_agent)
+match = re.findall(f'.*?\.{domain}', r.text) 
+res = []
+[res.append(x) for x in match if x not in res]
+pattern = [i.replace('<TD>', '') for i in res]
+final = [i.replace('<BR>', '') for i in pattern]
+for i in final:
+    print(i.strip())
+
